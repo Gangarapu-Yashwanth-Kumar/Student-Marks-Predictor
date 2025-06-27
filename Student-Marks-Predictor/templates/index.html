@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('/static/images/university_background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+        .container {
+            /* Updated background to brighter pastel grey and yellow mix */
+            background: linear-gradient(135deg, #f0f0f0, #ffffb3); /* Lighter pastel grey to brighter lemon chiffon */
+            border-radius: 15px;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height:400px;
+            text-align: center;
+            z-index: 10;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        h1 {
+            color: #2c5282;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        button {
+            background-color: #4c8bf5;
+            color: white;
+            padding: 0.85rem 1.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #3b74db;
+            transform: translateY(-2px);
+        }
+        .prediction-text {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        .prediction-text.error {
+            color: #ef4444;
+        }
+        /* Styling for the university logo */
+        .university-banner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 120px; /* Adjusted width for a logo/crest */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 20%; /* Ensure responsiveness on smaller screens */
+            border-radius: 10px; /* Rounded corners for the logo */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 600px) {
+            .university-banner {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 20px;
+                width: 100px; /* Smaller on mobile */
+                max-width: 30%; /* Adjust max-width for mobile */
+                order: -1;
+            }
+            body {
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+            .container {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="/static/images/university.png" alt="University Logo" class="university-banner">
+    <div class="container">
+        <h1>Student Marks Predictor</h1>
+        <form action="{{ url_for('predict') }}" method="POST" class="form-group">
+            <label for="study_hours">Enter Your Study Hours Per Day</label>
+            <input type="number" id="study_hours" name="study_hours" min="0" max="24" required placeholder="e.g., 5">
+            <button type="submit" class="mt-4">Predict Marks</button>
+        </form>
+        {% if prediction_text %}
+        <p class="prediction-text {{ 'error' if 'valid hours' in prediction_text else '' }}">
+            {{ prediction_text }}
+        </p>
+        {% endif %}
+    </div>
+</body>
+</html>
