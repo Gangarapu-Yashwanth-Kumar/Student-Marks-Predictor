@@ -9,7 +9,7 @@ This project provides an end-to-end solution for predicting student academic mar
 * **Data Analysis & Model Training**: Comprehensive Jupyter Notebook (`Student Marks Predictor.ipynb`) for Exploratory Data Analysis (EDA), data preprocessing, and training a regression model to predict student marks.
 * **Web Application Interface**: A Flask-based web application (`app.py`) that serves as an intuitive interface for users to input study hours and receive instant mark predictions.
 * **Input Validation**: Ensures robust user input by validating study hours (0-24 hours).
-* **Model Persistence**: The trained machine learning model is saved and loaded efficiently using `joblib`, ensuring the application uses a consistent, pre-trained model.
+* **Model Persistence**: The trained machine learning model is saved and loaded efficiently using `joblib`, ensuring the application uses a consistent, pre-trained model..
 
 ## 3. Tech Stack Used 🛠️
 
